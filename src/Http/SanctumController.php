@@ -24,9 +24,10 @@ class SanctumController
             })
             ->toArray();
 
-        $token = $user->createToken($request->name, $abilities);
+        $token = $user->createToken($request->name, $abilities)->plainTextToken;
+        $tokenValue = explode('|', $token, 2)[1];
 
-        return $token->plainTextToken;
+        return $tokenValue;
     }
 
     public function revoke(Request $request, $resourceName, $id)
